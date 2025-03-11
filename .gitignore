@@ -32,7 +32,7 @@ mta_archives/
 
 # IDEs
 # .vscode
-# .idea
+.idea
 
 # SAPUI5
 app/*/dist
