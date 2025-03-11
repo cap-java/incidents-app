@@ -1,4 +1,3 @@
-_out
 *.db
 *.sqlite
 connection.properties
@@ -31,12 +30,15 @@ mta_archives/
 *.flattened-pom.xml
 
 # IDEs
-# .vscode
-# .idea
+.vscode
+/.idea/
 
 # SAPUI5
 app/*/dist
-resources/
 
 # VitePress
 _docs/.vitepress/cache
+
+**/edmx/
+.reloadtrigger
+schema*.sql
