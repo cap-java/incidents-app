@@ -13,6 +13,7 @@
         <jdk.version>21</jdk.version>
         <cds.services.version>3.9.1</cds.services.version>
         <spring.boot.version>3.4.5</spring.boot.version>
+        <attachments.version>1.0.7</attachments.version>
         <cds.install-node.downloadUrl>https://nodejs.org/dist/</cds.install-node.downloadUrl>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -42,7 +43,7 @@
     <build>
         <plugins>
             <!-- JAVA VERSION -->
-            
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>

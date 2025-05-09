@@ -9,5 +9,5 @@
   ],
   "devDependencies": {
    "@sap/cds-dk": "^8.6.1"
-}
+  }
 }

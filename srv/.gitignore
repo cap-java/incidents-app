@@ -1,0 +1,4 @@
+# Avoid comitting activated xmlpls
+attachments.cds
+change-tracking.cds
+data-privacy.cds
