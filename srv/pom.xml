@@ -21,9 +21,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>cds-adapter-odata-v4</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -32,21 +32,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>	
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>com.sap.cds</groupId>
-			<artifactId>cds-adapter-odata-v4</artifactId>
-			<scope>runtime</scope>
+			<artifactId>cds-feature-attachments</artifactId>
+			<version>${attachments.version}</version>
 		</dependency>
 
 		<dependency>
@@ -58,6 +46,24 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -106,14 +112,15 @@
 					</execution>
 
 					<execution>
-					<id>cds.install-dependencies</id>
-					<goals>
-						<goal>npm</goal>
-					</goals>
-					<configuration>
-						<arguments>install</arguments>
-					</configuration>
-					</execution>		
+						<id>cds.install-dependencies</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>ci</arguments>
+						</configuration>
+					</execution>
+
 					<execution>
 						<id>cds.resolve</id>
 						<goals>
@@ -147,21 +154,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<!-- A profile that uses global installation of @sap/cds-dk -->
-		<profile>
-			<id>cdsdk-global</id>
-			<activation>
-				<property>
-					<name>env.CDSDK_GLOBAL</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<properties>
-				<cds.install-node.skip>true</cds.install-node.skip>
-				<cds.install-cdsdk.skip>true</cds.install-cdsdk.skip>
-			</properties>
-		</profile>
-	</profiles>
 </project>
