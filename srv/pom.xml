@@ -148,6 +148,8 @@
 						</goals>
 						<configuration>
 							<basePackage>cds.gen</basePackage>
+							<strictSetters>true</strictSetters>
+							<interfacesForAspects>true</interfacesForAspects>
 						</configuration>
 					</execution>
 				</executions>
