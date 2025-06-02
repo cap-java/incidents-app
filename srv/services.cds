@@ -1,4 +1,5 @@
 using { sap.capire.incidents as my } from '../db/schema';
+using from '@sap/cds/srv/outbox';
 
 /**
  * Service used by support personell, i.e. the incidents' 'processors'.
