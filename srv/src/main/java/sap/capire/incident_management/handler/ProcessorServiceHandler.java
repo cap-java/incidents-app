@@ -1,4 +1,4 @@
-package customer.incident_management.handler;
+package sap.capire.incident_management.handler;
 
 import cds.gen.processorservice.Incidents;
 import cds.gen.processorservice.ProcessorService_;

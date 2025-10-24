@@ -3,7 +3,7 @@
 
 	<parent>
 		<artifactId>incident-management-parent</artifactId>
-		<groupId>customer</groupId>
+		<groupId>sap.capire</groupId>
 		<version>${revision}</version>
 	</parent>
 

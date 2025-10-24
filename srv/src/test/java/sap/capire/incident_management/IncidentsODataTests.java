@@ -1,4 +1,4 @@
-package customer.incident_management;
+package sap.capire.incident_management;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
