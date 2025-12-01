@@ -1,0 +1,27 @@
+@server=http://localhost:8080
+@username=alice
+@password=
+
+
+### Customers
+# @name Customers_GET
+GET {{server}}/odata/v4/ApiService/Customers
+Authorization: Basic {{username}}:{{password}}
+
+
+### Incidents
+# @name Incidents_GET
+GET {{server}}/odata/v4/ApiService/Incidents
+Authorization: Basic {{username}}:{{password}}
+
+
+### Urgency
+# @name Urgency_GET
+GET {{server}}/odata/v4/ApiService/Urgency
+Authorization: Basic {{username}}:{{password}}
+
+
+### Status
+# @name Status_GET
+GET {{server}}/odata/v4/ApiService/Status
+Authorization: Basic {{username}}:{{password}}
