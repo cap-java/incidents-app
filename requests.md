@@ -10,7 +10,7 @@ This application demonstrates SAP Cloud Application Programming Model (CAP) for 
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CAP Java Runtime                                │
+│                              CAP Java Runtime                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │   ┌──────────────┐    ┌──────────────┐    ┌──────────────────────────────┐ │
@@ -62,33 +62,33 @@ CAP uses **CDS (Core Data Services)** to define both the domain model and servic
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         Domain Model                             │
+│                         Domain Model                            │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│   ┌─────────────┐         ┌─────────────┐                      │
-│   │  Incidents  │────────▶│  Customers  │                      │
-│   │             │   N:1   │             │                      │
-│   │  - title    │         │  - name     │                      │
-│   │  - urgency ─┼────┐    │  - email    │                      │
-│   │  - status ──┼──┐ │    │  - phone    │                      │
-│   │             │  │ │    │             │                      │
-│   └──────┬──────┘  │ │    └──────┬──────┘                      │
+│   ┌─────────────┐         ┌─────────────┐                       │
+│   │  Incidents  │────────▶│  Customers  │                       │
+│   │             │   N:1   │             │                       │
+│   │  - title    │         │  - name     │                       │
+│   │  - urgency ─┼────┐    │  - email    │                       │
+│   │  - status ──┼──┐ │    │  - phone    │                       │
+│   │             │  │ │    │             │                       │
+│   └──────┬──────┘  │ │    └──────┬──────┘                       │
 │          │         │ │           │                              │
 │          │ 1:N     │ │           │ 1:N                          │
 │          ▼         │ │           ▼                              │
-│   ┌─────────────┐  │ │    ┌─────────────┐                      │
-│   │Conversation │  │ │    │  Addresses  │                      │
-│   │  - author   │  │ │    │  - city     │                      │
-│   │  - message  │  │ │    │  - postCode │                      │
-│   └─────────────┘  │ │    └─────────────┘                      │
+│   ┌─────────────┐  │ │    ┌─────────────┐                       │
+│   │Conversation │  │ │    │  Addresses  │                       │
+│   │  - author   │  │ │    │  - city     │                       │
+│   │  - message  │  │ │    │  - postCode │                       │
+│   └─────────────┘  │ │    └─────────────┘                       │
 │                    │ │                                          │
-│          ┌─────────┘ └─────────┐                               │
-│          ▼                     ▼                               │
-│   ┌─────────────┐       ┌─────────────┐                        │
-│   │   Status    │       │   Urgency   │   (CodeList entities)  │
-│   │  N,A,I,H,   │       │   H, M, L   │                        │
-│   │  R,C        │       │             │                        │
-│   └─────────────┘       └─────────────┘                        │
+│          ┌─────────┘ └─────────┐                                │
+│          ▼                     ▼                                │
+│   ┌─────────────┐       ┌─────────────┐                         │
+│   │   Status    │       │   Urgency   │   (CodeList entities)   │
+│   │  N,A,I,H,   │       │   H, M, L   │                         │
+│   │  R,C        │       │             │                         │
+│   └─────────────┘       └─────────────┘                         │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -154,7 +154,7 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
-│                           CREATE Incident Flow                                    │
+│                           CREATE Incident Flow                                   │
 └──────────────────────────────────────────────────────────────────────────────────┘
 
   Client                                                                    Database
@@ -175,7 +175,7 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 │  1. OData V4 Adapter Entry Point                                                │
 │     ┌─────────────────────────────────────────────────────────────────────────┐ │
 │     │                                                                         │ │
-│     │  AbstractCdsODataServlet.service(HttpServletRequest, HttpServletResponse)│ │
+│     │  AbstractCdsODataServlet.service(HttpServletRequest, HttpServletResponse)││
 │     │                                                                         │ │
 │     │  • Establishes request context with runtime.requestContext()            │ │
 │     │  • Extracts service name from URL: "ProcessorService"                   │ │
@@ -227,7 +227,7 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 │     │  CdsProcessor.post(CdsODataRequest request)                             │ │
 │     │                                                                         │ │
 │     │  // Get the target service                                              │ │
-│     │  ApplicationService applicationService = globals.getApplicationService();│ │
+│     │  ApplicationService applicationService = globals.getApplicationService();││
 │     │                                                                         │ │
 │     │  // Convert OData payload to CQN Insert statement                       │ │
 │     │  Insert insert = Insert.into(ref).entry(entityData);                    │ │
@@ -297,8 +297,8 @@ The `applicationService.run()` call triggers the event handler chain:
 │     │      }                                                                  │ │
 │     │  }                                                                      │ │
 │     │                                                                         │ │
-│     │  Input:  { title: "Urgent: Server down", urgency_code: null }          │ │
-│     │  Output: { title: "Urgent: Server down", urgency_code: "H" }           │ │
+│     │  Input:  { title: "Urgent: Server down", urgency_code: null }          │  │
+│     │  Output: { title: "Urgent: Server down", urgency_code: "H" }           │  │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
 └───────────────────────────────────────────────────────────────────────────────────┘
@@ -343,17 +343,17 @@ The `applicationService.run()` call triggers the event handler chain:
 │     │                                                                         │ │
 │     │  CQN to SQL Translation (com.sap.cds.impl.sql.*)                        │ │
 │     │                                                                         │ │
-│     │  INSERT INTO sap_capire_incidents_Incidents                            │ │
-│     │    (ID, title, urgency_code, status_code, customer_ID,                 │ │
-│     │     createdAt, createdBy, modifiedAt, modifiedBy)                      │ │
+│     │  INSERT INTO sap_capire_incidents_Incidents                             │ │
+│     │    (ID, title, urgency_code, status_code, customer_ID,                  │ │
+│     │     createdAt, createdBy, modifiedAt, modifiedBy)                       │ │
 │     │  VALUES                                                                 │ │
-│     │    (UUID, 'Urgent: Server down', 'H', 'N', '1001',                     │ │
-│     │     NOW(), 'alice', NOW(), 'alice')                                    │ │
+│     │    (UUID, 'Urgent: Server down', 'H', 'N', '1001',                      │ │
+│     │     NOW(), 'alice', NOW(), 'alice')                                     │ │
 │     │                                                                         │ │
-│     │  Target table defined in: schema-h2.sql (generated from schema.cds)    │ │
+│     │  Target table defined in: schema-h2.sql (generated from schema.cds)     │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
                               ┌───────────┐
@@ -376,7 +376,7 @@ The `applicationService.run()` call triggers the event handler chain:
 │     │  Could be used for: audit logging, notifications, enrichment            │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -384,12 +384,12 @@ The `applicationService.run()` call triggers the event handler chain:
 │     ┌─────────────────────────────────────────────────────────────────────────┐ │
 │     │                                                                         │ │
 │     │  CdsProcessor.post() returns:                                           │ │
-│     │  new CdsODataResponse(SC_CREATED, remapResult(result, entity, null))   │ │
+│     │  new CdsODataResponse(SC_CREATED, remapResult(result, entity, null))    │ │
 │     │                                                                         │ │
 │     │  OlingoProcessor serializes to OData JSON format                        │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
                                Client receives:
@@ -411,7 +411,7 @@ CAP Java uses three handler phases, executed in order:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────┐
-│                          Event Handler Lifecycle                                │
+│                          Event Handler Lifecycle                               │
 ├────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                │
 │   ┌─────────────────────────────────────────────────────────────────────────┐  │
@@ -493,8 +493,8 @@ The `@Before(EVENT_UPDATE)` handler demonstrates request rejection.
 ```
   Client                                                                    Database
     │                                                                          │
-    │  PATCH /odata/v4/ProcessorService/Incidents(ID='...')                   │
-    │  { "title": "Updated title" }                                           │
+    │  PATCH /odata/v4/ProcessorService/Incidents(ID='...')                    │
+    │  { "title": "Updated title" }                                            │
     │                                                                          │
     ▼                                                                          │
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -512,15 +512,15 @@ The `@Before(EVENT_UPDATE)` handler demonstrates request rejection.
 │  │                                                                             ││
 │  │      // Line 53-55: Check status and reject if closed                       ││
 │  │      if (in.getStatusCode().equals("C")) {                                  ││
-│  │          throw new ServiceException(                                         ││
-│  │              ErrorStatuses.CONFLICT,           ◄─── HTTP 409                 ││
-│  │              "Can't modify a closed incident"                                ││
-│  │          );                                                                  ││
-│  │      }                                                                       ││
+│  │          throw new ServiceException(                                        |│
+│  │              ErrorStatuses.CONFLICT,           ◄─── HTTP 409                |│
+│  │              "Can't modify a closed incident"                               |│
+│  │          );                                                                 |│
+│  │      }                                                                      |│
 │  │  }                                                                          ││
 │  │                                                                             ││
 │  └─────────────────────────────────────────────────────────────────────────────┘│
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
             ┌───────────────────────┴───────────────────────┐
             │                                               │
@@ -564,7 +564,7 @@ CQN is CAP's internal query representation, independent of the database.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────┐
-│                    CQN: Abstraction Layer for Queries                           │
+│                    CQN: Abstraction Layer for Queries                          │
 ├────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                │
 │   OData Request                        CQN Representation                      │
@@ -575,7 +575,7 @@ CQN is CAP's internal query representation, independent of the database.
 │                                                                                │
 │   // com.sap.cds.ql.Select                                                     │
 │   Select.from(Incidents_.class)                                                │
-│         .where(i -> i.urgency().code().eq("H"))                               │
+│         .where(i -> i.urgency().code().eq("H"))                                │
 │                                                                                │
 │   CdsProcessor.get() builds this from OData $filter                            │
 │                                                                                │
@@ -588,17 +588,17 @@ CQN is CAP's internal query representation, independent of the database.
 │   Insert.into(Incidents_.class)                                                │
 │         .entry(incident)                                                       │
 │                                                                                │
-│   CdsProcessor.post(): Insert insert = Insert.into(ref).entry(entityData);    │
+│   CdsProcessor.post(): Insert insert = Insert.into(ref).entry(entityData);     │
 │                                                                                │
 │   ═══════════════════════════════════════════════════════════════════════════  │
 │                                                                                │
-│   PATCH /Incidents(ID='xxx') { "status_code": "R" }                           │
-│   ─────────────────────────────────────────────────                           │
+│   PATCH /Incidents(ID='xxx') { "status_code": "R" }                            │
+│   ─────────────────────────────────────────────────                            │
 │                                                                                │
 │   // com.sap.cds.ql.Update                                                     │
 │   Update.entity(Incidents_.class)                                              │
 │         .data(incident)                                                        │
-│         .where(i -> i.ID().eq("xxx"))                                         │
+│         .where(i -> i.ID().eq("xxx"))                                          │
 │                                                                                │
 │   CdsProcessor.patch(): CqnUpdate update = Update.entity(ref).data(entityData);│
 │                                                                                │
@@ -609,7 +609,7 @@ CQN is CAP's internal query representation, independent of the database.
 │                                                                                │
 │   // com.sap.cds.ql.Delete                                                     │
 │   Delete.from(Incidents_.class)                                                │
-│         .where(i -> i.ID().eq("xxx"))                                         │
+│         .where(i -> i.ID().eq("xxx"))                                          │
 │                                                                                │
 │   CdsProcessor.delete(): CqnDelete delete = Delete.from(toPathExpression(...));│
 │                                                                                │
@@ -621,18 +621,18 @@ CQN is CAP's internal query representation, independent of the database.
                                     ▼
 
 ┌────────────────────────────────────────────────────────────────────────────────┐
-│                              Generated SQL                                      │
+│                              Generated SQL                                     │
 ├────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                │
-│   SELECT * FROM sap_capire_incidents_Incidents WHERE urgency_code = 'H'       │
+│   SELECT * FROM sap_capire_incidents_Incidents WHERE urgency_code = 'H'        │
 │                                                                                │
-│   INSERT INTO sap_capire_incidents_Incidents (...) VALUES (...)               │
+│   INSERT INTO sap_capire_incidents_Incidents (...) VALUES (...)                │
 │                                                                                │
-│   UPDATE sap_capire_incidents_Incidents SET status_code = 'R' WHERE ID = ...  │
+│   UPDATE sap_capire_incidents_Incidents SET status_code = 'R' WHERE ID = ...   │
 │                                                                                │
-│   DELETE FROM sap_capire_incidents_Incidents WHERE ID = ...                   │
+│   DELETE FROM sap_capire_incidents_Incidents WHERE ID = ...                    │
 │                                                                                │
-│   Table names from: srv/src/main/resources/schema-h2.sql (generated)          │
+│   Table names from: srv/src/main/resources/schema-h2.sql (generated)           │
 │                                                                                │
 └────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -714,45 +714,45 @@ annotate ProcessorService.Incidents with @odata.draft.enabled;
 ```
 
 ```
-┌────────────────────────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────────────────────────┐
 │                         Draft Entity Lifecycle                                  │
-├────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                │
-│   1. CREATE (New Draft)                                                        │
-│      POST /ProcessorService/Incidents                                          │
-│      ─────────────────────────────────────────────────────────────────────     │
-│      → Creates draft record (IsActiveEntity = false)                           │
-│      → Stored in: ProcessorService_Incidents_drafts table                      │
-│                                                                                │
-│   2. EDIT (Modify Draft)                                                       │
-│      PATCH /ProcessorService/Incidents(ID='...',IsActiveEntity=false)         │
-│      ─────────────────────────────────────────────────────────────────────     │
-│      → Updates draft without touching active entity                            │
-│      → Multiple users can see draft state                                      │
-│                                                                                │
-│   3. ACTIVATE (Promote to Active)                                              │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                 │
+│   1. CREATE (New Draft)                                                         │
+│      POST /ProcessorService/Incidents                                           │
+│      ─────────────────────────────────────────────────────────────────────      │
+│      → Creates draft record (IsActiveEntity = false)                            │
+│      → Stored in: ProcessorService_Incidents_drafts table                       │
+│                                                                                 │
+│   2. EDIT (Modify Draft)                                                        │
+│      PATCH /ProcessorService/Incidents(ID='...',IsActiveEntity=false)           │
+│      ─────────────────────────────────────────────────────────────────────      │
+│      → Updates draft without touching active entity                             │
+│      → Multiple users can see draft state                                       │
+│                                                                                 │
+│   3. ACTIVATE (Promote to Active)                                               │
 │      POST .../Incidents(...,IsActiveEntity=false)/ProcessorService.draftActivate│
-│      ─────────────────────────────────────────────────────────────────────     │
-│      → Validates draft                                                         │
-│      → Moves to active table (IsActiveEntity = true)                          │
-│      → Deletes draft record                                                    │
-│                                                                                │
-│   4. DISCARD                                                                   │
-│      DELETE /ProcessorService/Incidents(ID='...',IsActiveEntity=false)        │
-│      ─────────────────────────────────────────────────────────────────────     │
-│      → Removes draft without affecting active entity                           │
-│                                                                                │
-│                                                                                │
-│   ┌─────────────────────┐                    ┌─────────────────────┐          │
-│   │                     │                    │                     │          │
-│   │   Draft Tables      │    draftActivate   │   Active Tables     │          │
-│   │   ───────────────   │   ─────────────►   │   ─────────────     │          │
-│   │   IsActiveEntity    │                    │   IsActiveEntity    │          │
-│   │   = false           │                    │   = true            │          │
-│   │                     │                    │                     │          │
-│   └─────────────────────┘                    └─────────────────────┘          │
-│                                                                                │
-└────────────────────────────────────────────────────────────────────────────────┘
+│      ─────────────────────────────────────────────────────────────────────      │
+│      → Validates draft                                                          │
+│      → Moves to active table (IsActiveEntity = true)                            │
+│      → Deletes draft record                                                     │
+│                                                                                 │
+│   4. DISCARD                                                                    │
+│      DELETE /ProcessorService/Incidents(ID='...',IsActiveEntity=false)          │
+│      ─────────────────────────────────────────────────────────────────────      │
+│      → Removes draft without affecting active entity                            │
+│                                                                                 │
+│                                                                                 │
+│   ┌─────────────────────┐                    ┌─────────────────────┐            │
+│   │                     │                    │                     │            │
+│   │   Draft Tables      │    draftActivate   │   Active Tables     │            │
+│   │   ───────────────   │   ─────────────►   │   ─────────────     │            │
+│   │   IsActiveEntity    │                    │   IsActiveEntity    │            │
+│   │   = false           │                    │   = true            │            │
+│   │                     │                    │                     │            │
+│   └─────────────────────┘                    └─────────────────────┘            │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -783,7 +783,7 @@ HTTP Request (POST /odata/v4/ProcessorService/Incidents)
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ CdsProcessor.post()                                                         │
 │   Package: com.sap.cds.adapter.odata.v4.processors                          │
-│   • Converts OData request to CQN: Insert.into(ref).entry(entityData)      │
+│   • Converts OData request to CQN: Insert.into(ref).entry(entityData)       │
 │   • Calls applicationService.run(insert)                                    │
 └─────────────────────────────────────────────────────────────────────────────┘
     │
@@ -836,7 +836,7 @@ HTTP Request (POST /odata/v4/ProcessorService/Incidents)
     ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Response Serialization                                                      │
-│   CdsProcessor: return new CdsODataResponse(SC_CREATED, remapResult(...))  │
+│   CdsProcessor: return new CdsODataResponse(SC_CREATED, remapResult(...))   │
 │   OlingoProcessor: Serializes to OData JSON                                 │
 └─────────────────────────────────────────────────────────────────────────────┘
     │
