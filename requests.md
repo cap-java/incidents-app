@@ -13,15 +13,15 @@ This application demonstrates SAP Cloud Application Programming Model (CAP) for 
 │                              CAP Java Runtime                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│   ┌──────────────┐    ┌──────────────┐    ┌──────────────────────────────┐ │
-│   │   OData V4   │    │   Service    │    │      Persistence Layer       │ │
-│   │   Adapter    │───▶│    Layer     │───▶│    (PersistenceService)      │ │
-│   │              │    │              │    │                              │ │
-│   │  - Parse     │    │ - Processor  │    │  - CQN to SQL translation   │ │
-│   │  - Serialize │    │   Service    │    │  - Transaction management   │ │
-│   │  - $metadata │    │ - Admin      │    │  - Database execution       │ │
-│   │              │    │   Service    │    │                              │ │
-│   └──────────────┘    └──────────────┘    └──────────────────────────────┘ │
+│   ┌──────────────┐    ┌──────────────┐    ┌──────────────────────────────┐  │
+│   │   OData V4   │    │   Service    │    │      Persistence Layer       │  │
+│   │   Adapter    │───▶│    Layer     │───▶│    (PersistenceService)      │  │
+│   │              │    │              │    │                              │  │
+│   │  - Parse     │    │ - Processor  │    │  - CQN to SQL translation    │  │
+│   │  - Serialize │    │   Service    │    │  - Transaction management    │  │
+│   │  - $metadata │    │ - Admin      │    │  - Database execution        │  │
+│   │              │    │   Service    │    │                              │  │
+│   └──────────────┘    └──────────────┘    └──────────────────────────────┘  │ 
 │          │                   │                          │                   │
 │          │                   ▼                          │                   │
 │          │           ┌──────────────┐                   │                   │
@@ -41,16 +41,6 @@ This application demonstrates SAP Cloud Application Programming Model (CAP) for 
     │   Client    │                              │   (H2/HANA)     │
     └─────────────┘                              └─────────────────┘
 ```
-
-### Runtime Components (Maven Dependencies)
-
-| Component | Maven Artifact | Purpose |
-|-----------|----------------|---------|
-| OData V4 Adapter | `cds-adapter-odata-v4` | HTTP/OData protocol handling |
-| Spring Boot Integration | `cds-starter-spring-boot` | Auto-configuration, DI |
-| Core Runtime | `cds4j-runtime` | Event handling, persistence |
-
----
 
 ## 2. The CDS Model Layer
 
@@ -159,8 +149,8 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 
   Client                                                                    Database
     │                                                                          │
-    │  POST /odata/v4/ProcessorService/Incidents                              │
-    │  { "title": "Urgent: Server down", "customer_ID": "1001" }              │
+    │  POST /odata/v4/ProcessorService/Incidents                               │
+    │  { "title": "Urgent: Server down", "customer_ID": "1001" }               │
     │                                                                          │
     ▼                                                                          │
 ```
@@ -173,19 +163,19 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
 │  1. OData V4 Adapter Entry Point                                                │
-│     ┌─────────────────────────────────────────────────────────────────────────┐ │
-│     │                                                                         │ │
+│     ┌──────────────────────────────────────────────────────────────────────────┐│
+│     │                                                                          ││
 │     │  AbstractCdsODataServlet.service(HttpServletRequest, HttpServletResponse)││
-│     │                                                                         │ │
-│     │  • Establishes request context with runtime.requestContext()            │ │
-│     │  • Extracts service name from URL: "ProcessorService"                   │ │
-│     │  • Validates service definition exists                                  │ │
-│     │  • Initializes Olingo OData infrastructure (EDM, metadata)              │ │
-│     │  • Registers OlingoProcessor as the request processor                   │ │
-│     │  • Calls odataHandler.process(req, resp)                                │ │
-│     │                                                                         │ │
-│     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+│     │                                                                          ││
+│     │  • Establishes request context with runtime.requestContext()             ││
+│     │  • Extracts service name from URL: "ProcessorService"                    ││
+│     │  • Validates service definition exists                                   ││
+│     │  • Initializes Olingo OData infrastructure (EDM, metadata)               ││
+│     │  • Registers OlingoProcessor as the request processor                    ││
+│     │  • Calls odataHandler.process(req, resp)                                 ││
+│     │                                                                          ││
+│     └──────────────────────────────────────────────────────────────────────────┘│
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ```
@@ -206,7 +196,7 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 │     │  • Delegates to CdsProcessor for CAP-specific handling                  │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ```
@@ -238,7 +228,7 @@ Let's trace a `POST /odata/v4/ProcessorService/Incidents` request through the ac
 │     │  return new CdsODataResponse(SC_CREATED, remapResult(...));             │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     │  applicationService.run(insert)
                                     ▼
@@ -264,7 +254,7 @@ The `applicationService.run()` call triggers the event handler chain:
 │     │  • Execute handler chain: @Before → @On → @After                        │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ```
@@ -297,11 +287,11 @@ The `applicationService.run()` call triggers the event handler chain:
 │     │      }                                                                  │ │
 │     │  }                                                                      │ │
 │     │                                                                         │ │
-│     │  Input:  { title: "Urgent: Server down", urgency_code: null }          │  │
-│     │  Output: { title: "Urgent: Server down", urgency_code: "H" }           │  │
+│     │  Input:  { title: "Urgent: Server down", urgency_code: null }           │ │
+│     │  Output: { title: "Urgent: Server down", urgency_code: "H" }            │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ```
@@ -326,7 +316,7 @@ The `applicationService.run()` call triggers the event handler chain:
 │     │  • Executes the SQL statement                                           │ │
 │     │                                                                         │ │
 │     └─────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ```
