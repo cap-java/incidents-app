@@ -8,8 +8,6 @@ The application support team members to create and process incidents on behalf o
 
 ![domain drawio](xmpls/schema.drawio.svg)
 
-
-
 ## Setup
 
 Assumed you prepared for CAP development as documented in capire's *[Getting Started > Jumpstart](https://cap.cloud.sap/docs/get-started/jumpstart)* page, ...
